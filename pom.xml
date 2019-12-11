@@ -1,0 +1,274 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.doobo</groupId>
+	<artifactId>apollo-client</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>Apollo Client</name>
+	<description>OKHttp3的简单封装，链式调用</description>
+	<url>https://github.com/doobo/apollo-client</url>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<github.path>apollo-client</github.path>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<apollo.version>1.5.1</apollo.version>
+		<javadoc.version>8</javadoc.version>
+		<compiler-plugin.version>3.6.2</compiler-plugin.version>
+		<war-plugin.version>3.1.0</war-plugin.version>
+		<clean-plugin.version>3.0.0</clean-plugin.version>
+		<resources-plugin.version>3.0.2</resources-plugin.version>
+		<surefire-plugin.version>2.20</surefire-plugin.version>
+		<jar-plugin.version>3.0.2</jar-plugin.version>
+		<source-plugin.version>3.0.1</source-plugin.version>
+		<javadoc-plugin.version>2.10.4</javadoc-plugin.version>
+		<gpg-plugin.version>1.6</gpg-plugin.version>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>oss</id>
+			<url>
+				https://oss.sonatype.org/service/local/staging/deploy/maven2
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>oss</id>
+			<uniqueVersion>false</uniqueVersion>
+			<url>
+				https://oss.sonatype.org/content/repositories/snapshots
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<organization>
+		<name>Ctrip, Inc.</name>
+		<url>http://www.ctrip.com</url>
+	</organization>
+
+	<scm>
+		<tag>master</tag>
+		<url>https://github.com/doobo/apollo-client</url>
+		<connection>scm:git:git@github.com:doobo/apollo-client.git</connection>
+		<developerConnection>scm:git:git@github.com:doobo/apollo-client.git</developerConnection>
+	</scm>
+
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.org/ctripcorp/apollo</url>
+	</ciManagement>
+
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/ctripcorp/apollo/issues</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>com.github.doobo</id>
+			<name>doobo</name>
+			<email>doobo@foxmail.com</email>
+		</developer>
+	</developers>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Spring Boot 2 requires Java 8, so we need to manually stick to 1.5.x version in order to compile apollo-client against Java 7 -->
+			<!-- This is only for apollo-client compilation use, because optional Spring dependencies are not transitive -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.5.16.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<!-- apollo -->
+		<dependency>
+			<groupId>com.ctrip.framework.apollo</groupId>
+			<artifactId>apollo-core</artifactId>
+            <version>${apollo.version}</version>
+		</dependency>
+		<!-- end of apollo -->
+		<!-- guice -->
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<!-- end of guice -->
+		<!-- log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.21</version>
+		</dependency>
+		<!-- yml processing -->
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+            <version>1.17</version>
+		</dependency>
+		<!-- end of yml processing -->
+		<!-- optional spring dependency -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<optional>true</optional>
+			<version>4.3.19.RELEASE</version>
+		</dependency>
+		<!-- optional spring boot dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<optional>true</optional>
+			<version>1.5.16.RELEASE</version>
+		</dependency>
+		<!-- test -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>9.4.12.v20180830</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- take over jcl -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.25</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- end of test -->
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${source-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<attach>true</attach>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${javadoc-plugin.version}</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<additionalparam>-Xdoclint:none</additionalparam>
+								</configuration>
+							</execution>
+						</executions>
+						<configuration>
+							<links>
+								<link>
+									http://docs.oracle.com/javase/${javadoc.version}/docs/api
+								</link>
+							</links>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<distributionManagement>
+				<repository>
+					<id>oss</id>
+					<url>
+						https://oss.sonatype.org/service/local/staging/deploy/maven2/
+					</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${jar-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire-plugin.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
