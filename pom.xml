@@ -15,7 +15,7 @@
 		<github.path>apollo-client</github.path>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<apollo.version>1.5.1</apollo.version>
+		<apollo.version>1.8.0</apollo.version>
 		<javadoc.version>8</javadoc.version>
 		<compiler-plugin.version>3.6.2</compiler-plugin.version>
 		<war-plugin.version>3.1.0</war-plugin.version>
